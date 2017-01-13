@@ -143,6 +143,13 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    private void computerRollsOne() {
+        Button b = (Button) findViewById(R.id.button);
+        Button b2 = (Button) findViewById(R.id.button2);
+        b.setEnabled(true);
+        b2.setEnabled(true);
+    }
+
     private void computerTurn() {
         Random rand = new Random();
         TextView t = (TextView) findViewById(R.id.textView5);
@@ -150,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         int choice = 0;
         int roll = this.rollHelper();
         if (roll == 1) { //computer rolled a 1
-            holdHelper(1);
+            this.computerRollsOne();
         } else {
             turnScore += roll;
             t.setText("Turn Score:");
