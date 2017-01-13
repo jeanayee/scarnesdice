@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private static int turnScore;
     private static int scoreStateComp;
     private static int turnScoreComp;
+    TextView s, s2, t, t2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         turnScore = 0;
         scoreStateComp = 0;
         turnScoreComp = 0;
+        s = (TextView) findViewById(R.id.textView2);
+        s2 = (TextView)findViewById(R.id.textView4);
+        t = (TextView) findViewById(R.id.textView5);
+        t2 = (TextView) findViewById(R.id.textView6);
     }
 
     public void hold(View view) {
@@ -34,18 +39,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void holdHelper(int player) {
-        TextView s = (TextView)findViewById(R.id.textView2);
-        TextView t = (TextView)findViewById(R.id.textView5);
-        TextView t2 = (TextView)findViewById(R.id.textView6);
         Button b = (Button)findViewById(R.id.button);
         Button b2 = (Button)findViewById(R.id.button2);
 
         if (player == 1) {
             b.setEnabled(true);
             b2.setEnabled(true);
-            s = (TextView)findViewById(R.id.textView4);
             scoreStateComp += turnScore;
-            s.setText(String.valueOf(scoreStateComp));
+            s2.setText(String.valueOf(scoreStateComp));
         } else {
             b.setEnabled(false);
             b2.setEnabled(false);
@@ -60,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void roll(View view) {
-        TextView s = (TextView) findViewById(R.id.textView2);
-        TextView t = (TextView) findViewById(R.id.textView5);
-        TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
         int roll = this.rollHelper();
         if (roll == 1) {
             Button b = (Button) findViewById(R.id.button);
@@ -129,10 +127,8 @@ public class MainActivity extends AppCompatActivity {
         scoreStateComp = 0;
         turnScoreComp = 0;
 
-        TextView s = (TextView)findViewById(R.id.textView2);
-        TextView sComp = (TextView)findViewById(R.id.textView4);
         s.setText("0");
-        sComp.setText("0");
+        s2.setText("0");
     }
     private void delayedComputerTurn() {
         new Handler().postDelayed(new Runnable() {
@@ -148,12 +144,13 @@ public class MainActivity extends AppCompatActivity {
         Button b2 = (Button) findViewById(R.id.button2);
         b.setEnabled(true);
         b2.setEnabled(true);
+        turnScore = 0;
+        t.setText("");
+        t2.setText("");
     }
 
     private void computerTurn() {
         Random rand = new Random();
-        TextView t = (TextView) findViewById(R.id.textView5);
-        TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
         int choice = 0;
         int roll = this.rollHelper();
         if (roll == 1) { //computer rolled a 1
