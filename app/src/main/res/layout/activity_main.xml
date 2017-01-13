@@ -106,4 +106,13 @@
         android:id="@+id/button3"
         android:onClick="reset"/>
 
+    <TextView
+        android:text="Your turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:id="@+id/textView7" />
+
 </RelativeLayout>

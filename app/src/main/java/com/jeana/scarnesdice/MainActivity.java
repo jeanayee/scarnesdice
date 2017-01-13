@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private static int turnScore;
     private static int scoreStateComp;
     private static int turnScoreComp;
-    TextView s, s2, t, t2;
+    TextView s, s2, t, t2, m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         s2 = (TextView)findViewById(R.id.textView4);
         t = (TextView) findViewById(R.id.textView5);
         t2 = (TextView) findViewById(R.id.textView6);
+        m = (TextView) findViewById(R.id.textView7);
+
+        Button reset = (Button) findViewById(R.id.button3);
+        reset.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                reset();
+            }
+        });
     }
 
     public void hold(View view) {
@@ -47,11 +55,19 @@ public class MainActivity extends AppCompatActivity {
             b2.setEnabled(true);
             scoreStateComp += turnScore;
             s2.setText(String.valueOf(scoreStateComp));
+            if (scoreStateComp >= 100) {
+                m.setText("Computer won");
+                reset();
+            }
         } else {
             b.setEnabled(false);
             b2.setEnabled(false);
             scoreState += turnScore;
             s.setText(String.valueOf(scoreState));
+            if (scoreState >= 100) {
+                m.setText("You won!");
+                reset();
+            }
         }
 
         turnScore = 0;
@@ -121,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         return 1;
     }*/
 
-    public void reset (View view) {
+    public void reset() {
         scoreState = 0;
         turnScore = 0;
         scoreStateComp = 0;
