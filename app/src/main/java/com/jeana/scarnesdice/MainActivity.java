@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     b.setEnabled(true);
                     b2.setEnabled(true);
-
+                    m.setText("Your turn");
                 }
             }, 2000);
         } else {
@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 b.setEnabled(true);
                 b2.setEnabled(true);
+                m.setText("Your turn");
             }
         }, 2000);
     }
