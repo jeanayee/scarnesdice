@@ -145,11 +145,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void computerTurn() {
         Random rand = new Random();
+        TextView t = (TextView) findViewById(R.id.textView5);
+        TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
         int choice = 0;
         int roll = this.rollHelper();
         if (roll == 1) { //computer rolled a 1
             holdHelper(1);
         } else {
+            turnScore += roll;
+            t.setText("Turn Score:");
+            t2.setText(String.valueOf(turnScore));
             choice = rand.nextInt(2);
             if (choice == 1) {
                 this.delayedComputerTurn();
