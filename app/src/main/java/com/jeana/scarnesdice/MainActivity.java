@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.imageView1);
         Random rand = new Random();
         int roll = rand.nextInt(6) + 1;
-        System.out.println("roll: " + roll);
+        System.out.println("player: " + player + " roll: " + roll);
         String url = "drawable/" + "dice" + roll;
         int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
         image.setImageResource(imageKey);
@@ -83,12 +83,21 @@ public class MainActivity extends AppCompatActivity {
             t.setText("");
             t2.setText("");
             if (player == 0) {
+                Button b = (Button)findViewById(R.id.button);
+                Button b2 = (Button)findViewById(R.id.button2);
+
+                b.setEnabled(false);
+                b2.setEnabled(false);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         computerTurn();
                     }
-                }, 5000);
+                }, 2000);
+
+                b.setEnabled(true);
+                b2.setEnabled(true);
             } else {
                 return 0;
             }
@@ -115,31 +124,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computerTurn() {
-        Button b = (Button)findViewById(R.id.button);
-        Button b2 = (Button)findViewById(R.id.button2);
-
-        b.setEnabled(false);
-        b2.setEnabled(false);
 
         Random rand = new Random();
         int choice = 0;
-        if (rollHelper(1) == 0) {
+        if (rollHelper(1) == 0) { //computer rolled a 1
             holdHelper(1);
-            b.setEnabled(true);
-            b2.setEnabled(true);
-        }
-        choice = rand.nextInt(2);
-        if (choice == 0) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    computerTurn();
-                }
-            }, 5000);
         } else {
-            holdHelper(1);
-            b.setEnabled(true);
-            b2.setEnabled(true);
+            choice = rand.nextInt(2);
+            if (choice == 1) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        computerTurn();
+                    }
+                }, 2000);
+            } else {
+                holdHelper(1);
+            }
         }
     }
 
