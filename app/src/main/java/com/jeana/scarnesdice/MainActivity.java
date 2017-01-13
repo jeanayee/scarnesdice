@@ -26,33 +26,29 @@ public class MainActivity extends AppCompatActivity {
         turnScore = 0;
         scoreStateComp = 0;
         turnScoreComp = 0;
+    }
 
-        Button hold = (Button) findViewById(R.id.button2);
-        hold.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                holdHelper(0);
-                computerTurn();
-            }
-        });
-
-
-
+    public void hold(View view) {
+        holdHelper(0);
+        this.delayedComputerTurn();
     }
 
     public void holdHelper(int player) {
         TextView s = (TextView)findViewById(R.id.textView2);
         TextView t = (TextView)findViewById(R.id.textView5);
         TextView t2 = (TextView)findViewById(R.id.textView6);
+        Button b = (Button)findViewById(R.id.button);
+        Button b2 = (Button)findViewById(R.id.button2);
 
         if (player == 1) {
-            Button b = (Button)findViewById(R.id.button);
-            Button b2 = (Button)findViewById(R.id.button2);
             b.setEnabled(true);
             b2.setEnabled(true);
             s = (TextView)findViewById(R.id.textView4);
             scoreStateComp += turnScore;
             s.setText(String.valueOf(scoreStateComp));
         } else {
+            b.setEnabled(false);
+            b2.setEnabled(false);
             scoreState += turnScore;
             s.setText(String.valueOf(scoreState));
         }
@@ -92,12 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 b.setEnabled(false);
                 b2.setEnabled(false);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        computerTurn();
-                    }
-                }, 2000);
+                this.delayedComputerTurn();
             } else {
                 b.setEnabled(true);
                 b2.setEnabled(true);
@@ -124,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
         s.setText("0");
         sComp.setText("0");
     }
+    private void delayedComputerTurn() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                computerTurn();
+            }
+        }, 2000);
+    }
 
     private void computerTurn() {
         Random rand = new Random();
@@ -133,12 +132,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             choice = rand.nextInt(2);
             if (choice == 1) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        computerTurn();
-                    }
-                }, 2000);
+                this.delayedComputerTurn();
             } else {
                 holdHelper(1);
             }
