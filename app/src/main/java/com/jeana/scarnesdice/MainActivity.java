@@ -129,13 +129,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computerRollsOne() {
-        Button b = (Button) findViewById(R.id.button);
-        Button b2 = (Button) findViewById(R.id.button2);
-        b.setEnabled(true);
-        b2.setEnabled(true);
-        turnScore = 0;
-        t.setText("");
-        t2.setText("");
+        final Button b = (Button) findViewById(R.id.button);
+        final Button b2 = (Button) findViewById(R.id.button2);
+        m.setText("Computer rolled one");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                b.setEnabled(true);
+                b2.setEnabled(true);
+                turnScore = 0;
+                t.setText("");
+                t2.setText("");
+            }
+        }, 2000);
     }
 
     private void computerTurn() {
