@@ -52,17 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (player == 1) {
             m.setText("Computer holds");
+            scoreStateComp += turnScore;
+            s2.setText(String.valueOf(scoreStateComp));
+            if (scoreStateComp >= 100) {
+                m.setText("Computer won");
+                reset();
+            }
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     b.setEnabled(true);
                     b2.setEnabled(true);
-                    scoreStateComp += turnScore;
-                    s2.setText(String.valueOf(scoreStateComp));
-                    if (scoreStateComp >= 100) {
-                        m.setText("Computer won");
-                        reset();
-                    }
+
                 }
             }, 2000);
         } else {
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         s2.setText("0");
     }
     private void delayedComputerTurn() {
+        m.setText("Computer Turn");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -132,20 +134,19 @@ public class MainActivity extends AppCompatActivity {
         final Button b = (Button) findViewById(R.id.button);
         final Button b2 = (Button) findViewById(R.id.button2);
         m.setText("Computer rolled one");
+        turnScore = 0;
+        t.setText("");
+        t2.setText("");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 b.setEnabled(true);
                 b2.setEnabled(true);
-                turnScore = 0;
-                t.setText("");
-                t2.setText("");
             }
         }, 2000);
     }
 
     private void computerTurn() {
-        m.setText("Computer Turn");
         Random rand = new Random();
         int choice = 0;
         int roll = this.rollHelper();
