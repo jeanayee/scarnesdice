@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         TextView t2 = (TextView)findViewById(R.id.textView6);
 
         if (player == 1) {
+            Button b = (Button)findViewById(R.id.button);
+            Button b2 = (Button)findViewById(R.id.button2);
+            b.setEnabled(true);
+            b2.setEnabled(true);
             s = (TextView)findViewById(R.id.textView4);
             scoreStateComp += turnScore;
             s.setText(String.valueOf(scoreStateComp));
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.imageView1);
         Random rand = new Random();
         int roll = rand.nextInt(6) + 1;
-        System.out.println("player: " + player + " roll: " + roll);
+        System.out.println("roll: " + roll);
         String url = "drawable/" + "dice" + roll;
         int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
         image.setImageResource(imageKey);
@@ -79,13 +83,12 @@ public class MainActivity extends AppCompatActivity {
             s = (TextView) findViewById(R.id.textView4);
         }
         if (roll == 1) {
+            Button b = (Button)findViewById(R.id.button);
+            Button b2 = (Button)findViewById(R.id.button2);
             turnScore = 0;
             t.setText("");
             t2.setText("");
             if (player == 0) {
-                Button b = (Button)findViewById(R.id.button);
-                Button b2 = (Button)findViewById(R.id.button2);
-
                 b.setEnabled(false);
                 b2.setEnabled(false);
 
@@ -95,10 +98,9 @@ public class MainActivity extends AppCompatActivity {
                         computerTurn();
                     }
                 }, 2000);
-
+            } else {
                 b.setEnabled(true);
                 b2.setEnabled(true);
-            } else {
                 return 0;
             }
 
@@ -124,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computerTurn() {
-
         Random rand = new Random();
         int choice = 0;
         if (rollHelper(1) == 0) { //computer rolled a 1
