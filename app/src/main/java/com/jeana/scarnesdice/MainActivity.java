@@ -17,18 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private static int scoreStateComp;
     private static int turnScoreComp;
 
-    long startTime = 0;
-
-    //runs without a timer by reposting this handler at the end of the runnable
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            timerHandler.postDelayed(this, 500);
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +83,13 @@ public class MainActivity extends AppCompatActivity {
             t.setText("");
             t2.setText("");
             if (player == 0) {
-                scoreState = 0;
-                s.setText(String.valueOf(scoreState));
-                computerTurn();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        computerTurn();
+                    }
+                }, 5000);
             } else {
-                scoreStateComp = 0;
-                s.setText(String.valueOf(scoreStateComp));
                 return 0;
             }
 
