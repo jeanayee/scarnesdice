@@ -47,18 +47,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void holdHelper(int player) {
-        Button b = (Button)findViewById(R.id.button);
-        Button b2 = (Button)findViewById(R.id.button2);
+        final Button b = (Button)findViewById(R.id.button);
+        final Button b2 = (Button)findViewById(R.id.button2);
 
         if (player == 1) {
-            b.setEnabled(true);
-            b2.setEnabled(true);
-            scoreStateComp += turnScore;
-            s2.setText(String.valueOf(scoreStateComp));
-            if (scoreStateComp >= 100) {
-                m.setText("Computer won");
-                reset();
-            }
+            m.setText("Computer holds");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    b.setEnabled(true);
+                    b2.setEnabled(true);
+                    scoreStateComp += turnScore;
+                    s2.setText(String.valueOf(scoreStateComp));
+                    if (scoreStateComp >= 100) {
+                        m.setText("Computer won");
+                        reset();
+                    }
+                }
+            }, 2000);
         } else {
             b.setEnabled(false);
             b2.setEnabled(false);
@@ -104,39 +110,6 @@ public class MainActivity extends AppCompatActivity {
         return roll;
     }
 
-/*    private int rollHelper(int player) {
-        TextView s = (TextView) findViewById(R.id.textView2);
-        TextView t = (TextView) findViewById(R.id.textView5);
-        TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
-        if (player == 1) {
-            s = (TextView) findViewById(R.id.textView4);
-        }
-        if (roll == 1) {
-            Button b = (Button)findViewById(R.id.button);
-            Button b2 = (Button)findViewById(R.id.button2);
-            turnScore = 0;
-            t.setText("");
-            t2.setText("");
-            if (player == 0) {
-                b.setEnabled(false);
-                b2.setEnabled(false);
-
-                this.delayedComputerTurn();
-            } else {
-                b.setEnabled(true);
-                b2.setEnabled(true);
-                return 0;
-            }
-
-        } else {
-            turnScore += roll;
-            t.setText("Turn Score:");
-            t2.setText(String.valueOf(turnScore));
-        }
-
-        return 1;
-    }*/
-
     public void reset() {
         scoreState = 0;
         turnScore = 0;
@@ -166,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void computerTurn() {
+        m.setText("Computer Turn");
         Random rand = new Random();
         int choice = 0;
         int roll = this.rollHelper();
