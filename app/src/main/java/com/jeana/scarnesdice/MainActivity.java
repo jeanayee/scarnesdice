@@ -60,18 +60,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void roll(View view) {
-        rollHelper(0);
+        TextView s = (TextView) findViewById(R.id.textView2);
+        TextView t = (TextView) findViewById(R.id.textView5);
+        TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
+        int roll = this.rollHelper();
+        if (roll == 1) {
+            Button b = (Button) findViewById(R.id.button);
+            Button b2 = (Button) findViewById(R.id.button2);
+            turnScore = 0;
+            t.setText("");
+            t2.setText("");
+            b.setEnabled(false);
+            b2.setEnabled(false);
+            this.delayedComputerTurn();
+        } else {
+            turnScore += roll;
+            t.setText("Turn Score:");
+            t2.setText(String.valueOf(turnScore));
+        }
     }
 
-    private int rollHelper(int player) {
+    private int rollHelper() {
         ImageView image = (ImageView) findViewById(R.id.imageView1);
         Random rand = new Random();
         int roll = rand.nextInt(6) + 1;
-        System.out.println("roll: " + roll);
         String url = "drawable/" + "dice" + roll;
         int imageKey = getResources().getIdentifier(url, "drawable", getPackageName());
         image.setImageResource(imageKey);
+        return roll;
+    }
 
+/*    private int rollHelper(int player) {
         TextView s = (TextView) findViewById(R.id.textView2);
         TextView t = (TextView) findViewById(R.id.textView5);
         TextView t2 = (TextView) findViewById(R.id.textView6); //turn score value
@@ -102,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return 1;
-    }
+    }*/
 
     public void reset (View view) {
         scoreState = 0;
@@ -127,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
     private void computerTurn() {
         Random rand = new Random();
         int choice = 0;
-        if (rollHelper(1) == 0) { //computer rolled a 1
+        int roll = this.rollHelper();
+        if (roll == 1) { //computer rolled a 1
             holdHelper(1);
         } else {
             choice = rand.nextInt(2);
