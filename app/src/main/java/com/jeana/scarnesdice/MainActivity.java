@@ -134,19 +134,24 @@ public class MainActivity extends AppCompatActivity {
 
         Random rand = new Random();
         int choice = 0;
-        while (choice == 0) {
-            if (rollHelper(1) == 0) {
-                break;
-            }
-            choice = rand.nextInt(2);
-            startTime = System.currentTimeMillis();
-            timerHandler.postDelayed(timerRunnable, 5000);
-
+        if (rollHelper(1) == 0) {
+            holdHelper(1);
+            b.setEnabled(true);
+            b2.setEnabled(true);
         }
-
-        holdHelper(1);
-        b.setEnabled(true);
-        b2.setEnabled(true);
+        choice = rand.nextInt(2);
+        if (choice == 0) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    computerTurn();
+                }
+            }, 5000);
+        } else {
+            holdHelper(1);
+            b.setEnabled(true);
+            b2.setEnabled(true);
+        }
     }
 
 
